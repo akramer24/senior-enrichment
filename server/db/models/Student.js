@@ -26,7 +26,6 @@ const Student = db.define('student', {
 	gpa: {
 		type: Sequelize.FLOAT,
 		validate: {
-			isNumeric: true,
 			min: 0.0,
 			max: 4.0
 		}

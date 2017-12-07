@@ -24,6 +24,7 @@ class CreateStudent extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleGPAChange = this.handleGPAChange.bind(this);
         this.handleCampusChange = this.handleCampusChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -40,7 +41,7 @@ class CreateStudent extends Component {
         })
             .then(res => res.data)
             .then(student => store.dispatch(getStudent(student)))
-            .catch(err => console.erroer(err));
+            .catch(err => console.error(err));
     }
 
     handleFirstNameChange(event) {
@@ -56,18 +57,14 @@ class CreateStudent extends Component {
     }
 
     handleGPAChange(event) {
-        this.setState({gpaInput: event.target.value});
+        this.setState({gpaInput: Number(event.target.value)});
     }
 
     handleCampusChange(event) {
-        const campus = this.props.campuses.filter(campus => {
+        const campus = this.props.campuses.find(campus => {
             return campus.name == event.target.value;
-        })[0];
-        console.log(this.state);
-        console.log(campus.id);
-        
+        });
         this.setState({campusIdInput: campus.id});
-        console.log(this.state);
     }
 
     handleSubmit(event) {
@@ -78,17 +75,16 @@ class CreateStudent extends Component {
                 lastName: this.state.lastNameInput,
                 email: this.state.emailInput,
                 gpa: this.state.gpaInput,
-                campusId: this.state.campusId
+                campusId: this.state.campusIdInput
             }
         )
-        .then(() => this.setState({
+        this.setState({
             firstNameInput: '',
             lastNameInput: '',
             emailInput: '',
             gpaInput: null,
             campusIdInput: null
-        }))
-        .catch(err => console.error(err));
+        });
     }
 
     render() {
@@ -97,6 +93,7 @@ class CreateStudent extends Component {
                 <fieldset>
                     <legend>Create a Student</legend>
                     Campus: <select onChange={this.handleCampusChange}>
+                        <option>Select a Campus</option>
                         {
                             this.props.campuses.map(campus => {
                                 return <option key={campus.id}>{campus.name}</option>

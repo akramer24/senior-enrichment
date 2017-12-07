@@ -12,8 +12,9 @@ studentRouter.get('/:studentId', (req, res, next) => {
 })
 
 studentRouter.post('/', (req, res, next) => {
+    console.log(req.body)
     Student.create(req.body)
-        .then(campus => rse.send(campus))
+        .then(campus => res.send(campus))
         .catch(next);
 })
 
