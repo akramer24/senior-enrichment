@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
 export function getCampuses(campuses) {
     return {
@@ -13,6 +14,13 @@ export function getCampuses(campuses) {
 export function getCampus(campus) {
     return {
         type: GET_CAMPUS,
+        campus
+    }
+}
+
+export function updateCampus(campus) {
+    return {
+        type: UPDATE_CAMPUS,
         campus
     }
 }
@@ -33,6 +41,8 @@ function campusReducer(state = [], action) {
         case GET_CAMPUSES:
             return action.campuses;
         case GET_CAMPUS:
+            return [...state, action.campus];
+        case UPDATE_CAMPUS:
             return [...state, action.campus];
         default:
             return state;

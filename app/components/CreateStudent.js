@@ -14,8 +14,9 @@ class CreateStudent extends Component {
             firstNameInput: '',
             lastNameInput: '',
             emailInput: '',
-            gpaInput: null,
-            campusIdInput: null
+            gpaInput: '',
+            campusIdInput: null,
+            isIdDirty: false
         }
         
         this.createNewStudent = this.createNewStudent.bind(this);
@@ -64,27 +65,31 @@ class CreateStudent extends Component {
         const campus = this.props.campuses.find(campus => {
             return campus.name == event.target.value;
         });
-        this.setState({campusIdInput: campus.id});
+        this.setState({campusIdInput: campus.id, isIdDirty: true});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.createNewStudent(
-            {
-                firstName: this.state.firstNameInput,
-                lastName: this.state.lastNameInput,
-                email: this.state.emailInput,
-                gpa: this.state.gpaInput,
-                campusId: this.state.campusIdInput
-            }
-        )
-        this.setState({
-            firstNameInput: '',
-            lastNameInput: '',
-            emailInput: '',
-            gpaInput: null,
-            campusIdInput: null
-        });
+        if (!this.state.isIdDirty) {
+            alert('please select a campus')
+        } else {
+            this.createNewStudent(
+                {
+                    firstName: this.state.firstNameInput,
+                    lastName: this.state.lastNameInput,
+                    email: this.state.emailInput,
+                    gpa: this.state.gpaInput,
+                    campusId: this.state.campusIdInput
+                }
+            )
+            this.setState({
+                firstNameInput: '',
+                lastNameInput: '',
+                emailInput: '',
+                gpaInput: '',
+                campusIdInput: null
+            });
+        }
     }
 
     render() {
@@ -100,10 +105,10 @@ class CreateStudent extends Component {
                             })
                         }
                     </select>
-                    First Name: <input type='text' onChange={this.handleFirstNameChange}/><br/>
-                    Last Name: <input type='text' onChange={this.handleLastNameChange}/><br/>
-                    Email: <input type='text' onChange={this.handleEmailChange}/><br/>
-                    GPA: <input type='text' onChange={this.handleGPAChange}/><br/>
+                    First Name: <input type='text' value={this.state.firstNameInput} placeholder='Required' onChange={this.handleFirstNameChange}/><br/>
+                    Last Name: <input type='text' value={this.state.lastNameInput} placeholder='Required' onChange={this.handleLastNameChange}/><br/>
+                    Email: <input type='text' value={this.state.emailInput} placeholder='Required' onChange={this.handleEmailChange}/><br/>
+                    GPA: <input type='text' placeholder='0.0 to 4.0' onChange={this.handleGPAChange}/><br/>
                     <button type='submit'>Create</button>
                 </fieldset>
             </form>

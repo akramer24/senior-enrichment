@@ -4,21 +4,13 @@ import AllCampuses from './AllCampuses';
 import AllStudents from './AllStudents';
 import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
+import Navbar from './Navbar';
 
 function Main() {
     return (
         <Router>
             <div>
-                <div>
-                    <NavLink to='/campuses'>
-                        <span>Campuses</span>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to='/students'>
-                        <span>Students</span>
-                    </NavLink>
-                </div>
+                <Navbar />
                 <Switch>
                     <Route exact path='/campuses' component={AllCampuses} />
                     <Route path='/campuses/:campusId' component={SingleCampus} />

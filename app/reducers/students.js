@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_STUDENTS = 'GET_STUDENTS';
 const GET_STUDENT = 'GET_STUDENT';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
 
 export function getStudents(students) {
     return {
@@ -13,6 +14,13 @@ export function getStudents(students) {
 export function getStudent(student) {
     return {
         type: GET_STUDENT,
+        student
+    }
+}
+
+export function updateStudent(student) {
+    return {
+        type: UPDATE_STUDENT,
         student
     }
 }
@@ -33,6 +41,8 @@ function studentReducer(state = [], action) {
         case GET_STUDENTS:
             return action.students;
         case GET_STUDENT:
+            return [...state, action.student]
+        case UPDATE_STUDENT:
             return [...state, action.student]
         default:
             return state;

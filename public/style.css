@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(81, 84, 85);
+}
+
+#student-list, #campus-list {
+    display: flex;
+    flex-wrap: wrap;    
+}
+
+.student-item, .campus-item {
+    margin: 2em;
+    height: 250px;
+    width: 300px;
+    border: 2px solid black;
+    padding: 0px 10px 10px 10px;
+    overflow: scroll;
+    background-color: #6089e0;
+}
+
+#navbar {
+    display: flex;
+    background-color: #e06060;
+}
+
+.navbar-item {
+    margin: 0.5em;
+    font-size: 2em;
+}
+
+.navlink {
+    text-decoration: none;
+    color: #dbc4c4;
+}
+
+.navlink:hover {
+    color: #110202;
+}
+
+.student-attributes {
+    list-style: none;
+    display: inline;
+}
+
+.student-name {
+    text-decoration: none;
+    color: rgb(68, 44, 100);
+}
+
+.student-name:hover {
+    color: rgb(236, 93, 153);
+}

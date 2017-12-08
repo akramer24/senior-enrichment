@@ -19,4 +19,18 @@ campusRouter.post('/', (req, res, next) => {
         .catch(next);
 })
 
+campusRouter.put('/:campusId', (req, res, next) => {
+    Campus.findById(req.params.campusId)
+        .then(campus => campus.update(req.body))
+        .catch(next);
+})
+
+campusRouter.delete('/:campusId', (req, res, next) => {
+    Campus.destroy({
+        where: { id: req.params.campusId }
+    })
+        .then(() => res.sendStatus(204).end())
+        .catch(next);
+})
+
 module.exports = campusRouter;

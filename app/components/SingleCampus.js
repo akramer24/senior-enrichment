@@ -3,6 +3,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCampus, selectCampus, fetchStudents } from '../reducers';
 import axios from 'axios';
+import EditCampus from './EditCampus';
 
 class SingleCampus extends Component {
 
@@ -27,6 +28,7 @@ class SingleCampus extends Component {
                         )
                     })
                 } </h4>
+                <EditCampus />
             </div>
         )
     }
