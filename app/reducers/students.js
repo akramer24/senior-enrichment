@@ -43,7 +43,9 @@ function studentReducer(state = [], action) {
         case GET_STUDENT:
             return [...state, action.student]
         case UPDATE_STUDENT:
-            return [...state, action.student]
+            return state.filter(student => {
+                return student.id !== action.student.id;
+            }).concat(action.student);
         default:
             return state;
     }

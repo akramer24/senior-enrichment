@@ -43,7 +43,9 @@ function campusReducer(state = [], action) {
         case GET_CAMPUS:
             return [...state, action.campus];
         case UPDATE_CAMPUS:
-            return [...state, action.campus];
+            return state.filter(campus => {
+                return campus.id !== action.campus.id
+            }).concat(action.campus);
         default:
             return state;
     }

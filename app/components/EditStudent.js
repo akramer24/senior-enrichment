@@ -32,7 +32,6 @@ class EditStudent extends Component {
         this.props.loadCampuses();
 
         const student = this.props.selectedStudent;
-        console.log(this.props)
         
         this.setState({
             firstNameInput: student.firstName,
@@ -54,6 +53,7 @@ class EditStudent extends Component {
         })
             .then(res => res.data)
             .then(student => store.dispatch(updateStudent(student)))
+            .then(() => this.props.loadStudent(this.props.match.params.studentId))
             .catch(err => console.error(err));
     }
 
@@ -82,9 +82,6 @@ class EditStudent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // if (!this.state.isIdDirty) {
-        //     alert('please select a campus')
-        // } else {
             this.editStudent(
                 {
                     firstName: this.state.firstNameInput,
@@ -101,12 +98,11 @@ class EditStudent extends Component {
                 gpaInput: '',
                 campusIdInput: null
             });
+            
             alert('submitted')
-        // }
     }
 
     render() {
-        console.log('render', this.props)
         return (
             <form onSubmit={this.handleSubmit}>
             <fieldset>
@@ -119,9 +115,21 @@ class EditStudent extends Component {
                         })
                     }
                 </select>
-                First Name: <input type='text' value={this.state.firstNameInput} placeholder='Required' onChange={this.handleFirstNameChange}/><br/>
-                Last Name: <input type='text' value={this.state.lastNameInput} placeholder='Required' onChange={this.handleLastNameChange}/><br/>
-                Email: <input type='text' value={this.state.emailInput} placeholder='Required' onChange={this.handleEmailChange}/><br/>
+                First Name: <input type='text' value={this.state.firstNameInput} 
+                            placeholder={this.props.selectedStudent.firstName 
+                            ? 
+                            this.props.selectedStudent.firstName : 'Required' } 
+                            onChange={this.handleFirstNameChange}/><br/>
+                Last Name: <input type='text' value={this.state.lastNameInput} 
+                            placeholder={this.props.selectedStudent.lastName
+                            ?
+                            this.props.selectedStudent.lastName : 'Required'} 
+                            onChange={this.handleLastNameChange}/><br/>
+                Email: <input type='text' value={this.state.emailInput} 
+                            placeholder={this.props.selectedStudent.email
+                            ?
+                            this.props.selectedStudent.email: 'Required'} 
+                            onChange={this.handleEmailChange}/><br/>
                 GPA: <input type='text' placeholder='0.0 to 4.0' onChange={this.handleGPAChange}/><br/>
                 <button type='submit'>Edit</button>
             </fieldset>

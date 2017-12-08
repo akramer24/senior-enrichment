@@ -43,10 +43,15 @@ class AllStudents extends Component {
                                     <NavLink to={`/campuses/${student.campusId}`}>
                                         <h3>{student.campus && student.campus.name}</h3>
                                     </NavLink>
-                                    <ul className='student-attributes'>
-                                        <li>Email: {student.email}</li>
-                                        <li>GPA: {student.gpa}</li>
-                                    </ul>
+                                    <div className='student-flex'>
+                                        <ul className='student-attributes'>
+                                            <li>Email: {student.email}</li>
+                                            <li>GPA: {student.gpa}</li>
+                                        </ul>
+                                        <div>
+                                            <img src={student.imageUrl} className='student-img'/>    
+                                        </div>
+                                    </div>
                                     <button onClick={this.handleDelete.bind(this, student)}>Delete</button>
                                 </div>
                             )

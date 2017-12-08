@@ -4,11 +4,11 @@ import { withRouter, Route } from 'react-router-dom';
 import store from '../store';
 import axios from 'axios';
 import AllCampuses from './AllCampuses';
-import { getCampus, fetchCampus } from '../reducers';
+import { getCampus, fetchCampus, updateCampus } from '../reducers';
 
 class EditCampus extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             nameInput: '',
@@ -18,6 +18,7 @@ class EditCampus extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.editCampus = this.editCampus.bind(this);
     }
 
     componentDidMount() {
@@ -37,7 +38,13 @@ class EditCampus extends Component {
             description: campus.description
         })
             .then(res => res.data)
-            .then(campus => store.dispatch(updateCampus(campus)))
+            .then(campus => {
+                console.log('made it');
+                store.dispatch(updateCampus(campus))
+            })
+            .then(() => {
+                this.props.loadCampus(this.props.match.params.campusId
+            )})
             .catch(err => console.error(err));
     }
 
@@ -60,6 +67,7 @@ class EditCampus extends Component {
             name: '',
             description: ''
         })
+        alert('Submitted')
     }
 
     render() {
@@ -67,8 +75,16 @@ class EditCampus extends Component {
             <form onSubmit={this.handleSubmit}>
             <fieldset>
                 <legend>Edit Campus Information</legend>
-                Name: <input type='text' value={this.state.nameInput} placeholder='Required' onChange={this.handleNameChange}/><br/>
-                Description: <input type='text' value={this.state.descriptionInput} placeholder='Required' onChange={this.handleDescriptionChange}/><br/>
+                Name: <input type='text' value={this.state.nameInput} 
+                        placeholder={this.props.selectedCampus.name
+                        ?
+                        this.props.selectedCampus.name : 'Required'} 
+                        onChange={this.handleNameChange}/><br/>
+                Description: <input type='text' value={this.state.descriptionInput} 
+                        placeholder={this.props.selectedCampus.description
+                        ?
+                        this.props.selectedCampus.description : 'Required'} 
+                        onChange={this.handleDescriptionChange}/><br/>
                 <button type='submit'>Edit</button>
             </fieldset>
         </form>

@@ -44,6 +44,8 @@ body {
 .student-attributes {
     list-style: none;
     display: inline;
+    margin-left: -20px;
+    flex: 2;
 }
 
 .student-name {
@@ -53,4 +55,13 @@ body {
 
 .student-name:hover {
     color: rgb(236, 93, 153);
+}
+
+.student-flex {
+    display: flex;
+}
+
+.student-img {
+    width: 125px;
+    height: 90px;
 }

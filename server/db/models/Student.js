@@ -29,7 +29,12 @@ const Student = db.define('student', {
 			min: 0.0,
 			max: 4.0
 		}
-	}}, 
+	},
+	imageUrl: {
+		type: Sequelize.STRING,
+		defaultValue: 'http://a.espncdn.com/combiner/i?img=/i/headshots/mlb/players/full/3602.png&w=350&h=254'
+	}
+	}, 
 	{
 		getterMethods: {
 			name() {

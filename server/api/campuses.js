@@ -21,7 +21,10 @@ campusRouter.post('/', (req, res, next) => {
 
 campusRouter.put('/:campusId', (req, res, next) => {
     Campus.findById(req.params.campusId)
-        .then(campus => campus.update(req.body))
+        .then(campus => {
+            campus.update(req.body);
+            res.send(campus);
+        })
         .catch(next);
 })
 
