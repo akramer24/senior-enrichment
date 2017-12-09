@@ -7,9 +7,20 @@ import EditCampus from './EditCampus';
 
 class SingleCampus extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            displayForm: false
+        }
+    }
+    
     componentDidMount() {
         this.props.loadCampus(this.props.match.params.campusId);
         this.props.loadStudents();
+    }
+
+    displayEdit() {
+        this.setState({displayForm: true});
     }
 
     render() {
@@ -28,7 +39,10 @@ class SingleCampus extends Component {
                         )
                     })
                 } </h4>
-                <EditCampus />
+                <button onClick={this.displayEdit.bind(this)}>Edit Campus Info</button>
+                {
+                    this.state.displayForm ? <EditCampus display={this.state.displayForm}/> : <br/>
+                }
             </div>
         )
     }

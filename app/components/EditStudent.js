@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter, Route, NavLink } from 'react-router-dom';
 import store from '../store';
 import axios from 'axios';
-import AllStudents from './AllStudents';
 import { updateStudent, fetchCampuses, fetchStudent } from '../reducers';
 
 
@@ -33,19 +32,6 @@ class EditStudent extends Component {
     componentDidMount() {
         this.props.loadStudent(this.props.match.params.studentId);
         this.props.loadCampuses();
-
-        // const student = this.props.selectedStudent;
-
-        // this.setState({
-        //     firstNameInput: student.firstName,
-        //     lastNameInput: student.lastName,
-        //     emailInput: student.email,
-        //     gpaInput: student.gpa,
-        //     imageUrlInput: student.imageUrl,
-        //     campusIdInput: student.campusId
-        // })
-        console.log('mounteddddd')
-        console.log(this.state)
     }
 
     editStudent(student) {
@@ -118,7 +104,6 @@ class EditStudent extends Component {
     }
 
     render() {
-        console.log('rendered', this.state)
         return (
             <form onSubmit={this.handleSubmit}>
                 <fieldset>

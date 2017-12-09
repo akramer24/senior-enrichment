@@ -7,9 +7,20 @@ import EditStudent from './EditStudent';
 
 class SingleStudent extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            displayForm: false
+        }
+    }
+
     componentDidMount() {
         this.props.loadStudent(this.props.match.params.studentId);
         this.props.loadCampuses();
+    }
+
+    displayEdit() {
+        this.setState({displayForm: true});
     }
 
     render() {
@@ -34,7 +45,10 @@ class SingleStudent extends Component {
                     <li>Email: {student.email}</li>
                     <li>GPA: {student.gpa}</li>
                 </ul>
-                <EditStudent />
+                <button onClick={this.displayEdit.bind(this)}>Edit Student Info</button>
+                {
+                    this.state.displayForm ? <EditStudent display={this.state.displayForm}/> : <br/>
+                }
             </div>
         )
     }
