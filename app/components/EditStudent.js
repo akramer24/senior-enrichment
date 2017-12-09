@@ -10,13 +10,14 @@ import { updateStudent, fetchCampuses, fetchStudent } from '../reducers';
 class EditStudent extends Component {
     constructor(props) {
         super(props);
+        const student = this.props.selectedStudent;        
         this.state = {
-            firstNameInput: '',
-            lastNameInput: '',
-            emailInput: '',
-            gpaInput: '',
-            imageUrlInput: '',
-            campusIdInput: null
+            firstNameInput: student.firstName,
+            lastNameInput: student.lastName,
+            emailInput: student.email,
+            gpaInput: student.gpa,
+            imageUrlInput: student.imageUrl,
+            campusIdInput: student.campusId
         }
 
         this.editStudent = this.editStudent.bind(this);
@@ -33,17 +34,18 @@ class EditStudent extends Component {
         this.props.loadStudent(this.props.match.params.studentId);
         this.props.loadCampuses();
 
-        const student = this.props.selectedStudent;
+        // const student = this.props.selectedStudent;
 
-        this.setState({
-            firstNameInput: student.firstName,
-            lastNameInput: student.lastName,
-            emailInput: student.email,
-            gpaInput: student.gpa,
-            imageUrlInput: student.imageUrl,
-            campusIdInput: student.campusId
-        })
-
+        // this.setState({
+        //     firstNameInput: student.firstName,
+        //     lastNameInput: student.lastName,
+        //     emailInput: student.email,
+        //     gpaInput: student.gpa,
+        //     imageUrlInput: student.imageUrl,
+        //     campusIdInput: student.campusId
+        // })
+        console.log('mounteddddd')
+        console.log(this.state)
     }
 
     editStudent(student) {
@@ -58,6 +60,18 @@ class EditStudent extends Component {
             .then(res => res.data)
             .then(student => store.dispatch(updateStudent(student)))
             .then(() => this.props.loadStudent(this.props.match.params.studentId))
+            .then(() => {
+                console.log('made it to submit')
+                this.setState({
+                    firstNameInput: '',
+                    lastNameInput: '',
+                    emailInput: '',
+                    gpaInput: '',
+                    imageUrlInput: '',
+                    campusIdInput: null
+                });
+                console.log('submitted', this.state)
+            })
             .catch(err => console.error(err));
     }
 
@@ -74,7 +88,7 @@ class EditStudent extends Component {
     }
 
     handleGPAChange(event) {
-        this.setState({ gpaInput: Number(event.target.value) });
+        this.setState({ gpaInput: event.target.value });
     }
 
     handleImageUrlChange(event) {
@@ -100,25 +114,17 @@ class EditStudent extends Component {
                 campusId: this.state.campusIdInput
             }
         )
-        this.setState({
-            firstNameInput: '',
-            lastNameInput: '',
-            emailInput: '',
-            gpaInput: '',
-            imageUrlInput: '',
-            campusIdInput: null
-        });
-
         alert('submitted')
     }
 
     render() {
+        console.log('rendered', this.state)
         return (
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Edit Information</legend>
                     Campus: <select onChange={this.handleCampusChange}>
-                        <option id='0'>Select a Campus</option>
+                        <option selected disabled hidden>Select a Campus</option>
                         {
                             this.props.campuses.map(campus => {
                                 return <option key={campus.id}>{campus.name}</option>
