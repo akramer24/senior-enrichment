@@ -15,32 +15,35 @@ class EditStudent extends Component {
             lastNameInput: '',
             emailInput: '',
             gpaInput: '',
-            campusIdInput: null,
+            imageUrlInput: '',
+            campusIdInput: null
         }
-        
+
         this.editStudent = this.editStudent.bind(this);
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleGPAChange = this.handleGPAChange.bind(this);
+        this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
         this.handleCampusChange = this.handleCampusChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
-        this.props.loadStudent(this.props.match.params.studentId);        
+        this.props.loadStudent(this.props.match.params.studentId);
         this.props.loadCampuses();
 
         const student = this.props.selectedStudent;
-        
+
         this.setState({
             firstNameInput: student.firstName,
             lastNameInput: student.lastName,
             emailInput: student.email,
             gpaInput: student.gpa,
-            campusIdInput: student.campusId,
+            imageUrlInput: student.imageUrl,
+            campusIdInput: student.campusId
         })
-        
+
     }
 
     editStudent(student) {
@@ -49,6 +52,7 @@ class EditStudent extends Component {
             lastName: student.lastName,
             email: student.email,
             gpa: student.gpa,
+            imageUrl: student.imageUrl,
             campusId: student.campusId
         })
             .then(res => res.data)
@@ -58,99 +62,114 @@ class EditStudent extends Component {
     }
 
     handleFirstNameChange(event) {
-        this.setState({firstNameInput: event.target.value});
+        this.setState({ firstNameInput: event.target.value });
     }
 
     handleLastNameChange(event) {
-        this.setState({lastNameInput: event.target.value});
+        this.setState({ lastNameInput: event.target.value });
     }
 
     handleEmailChange(event) {
-        this.setState({emailInput: event.target.value});
+        this.setState({ emailInput: event.target.value });
     }
 
     handleGPAChange(event) {
-        this.setState({gpaInput: Number(event.target.value)});
+        this.setState({ gpaInput: Number(event.target.value) });
+    }
+
+    handleImageUrlChange(event) {
+        this.setState({ imageUrlInput: event.target.value });
     }
 
     handleCampusChange(event) {
         const campus = this.props.campuses.find(campus => {
             return campus.name == event.target.value;
         });
-        this.setState({campusIdInput: campus.id});
+        this.setState({ campusIdInput: campus.id });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-            this.editStudent(
-                {
-                    firstName: this.state.firstNameInput,
-                    lastName: this.state.lastNameInput,
-                    email: this.state.emailInput,
-                    gpa: this.state.gpaInput,
-                    campusId: this.state.campusIdInput
-                }
-            )
-            this.setState({
-                firstNameInput: '',
-                lastNameInput: '',
-                emailInput: '',
-                gpaInput: '',
-                campusIdInput: null
-            });
-            
-            alert('submitted')
+        this.editStudent(
+            {
+                firstName: this.state.firstNameInput,
+                lastName: this.state.lastNameInput,
+                email: this.state.emailInput,
+                gpa: this.state.gpaInput,
+                imageUrl: this.state.imageUrlInput,
+                campusId: this.state.campusIdInput
+            }
+        )
+        this.setState({
+            firstNameInput: '',
+            lastNameInput: '',
+            emailInput: '',
+            gpaInput: '',
+            imageUrlInput: '',
+            campusIdInput: null
+        });
+
+        alert('submitted')
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-            <fieldset>
-                <legend>Edit Information</legend>
-                Campus: <select onChange={this.handleCampusChange}>
-                    <option>Select a Campus</option>
-                    {
-                        this.props.campuses.map(campus => {
-                            return <option key={campus.id}>{campus.name}</option>
-                        })
-                    }
-                </select>
-                First Name: <input type='text' value={this.state.firstNameInput} 
-                            placeholder={this.props.selectedStudent.firstName 
-                            ? 
-                            this.props.selectedStudent.firstName : 'Required' } 
-                            onChange={this.handleFirstNameChange}/><br/>
-                Last Name: <input type='text' value={this.state.lastNameInput} 
-                            placeholder={this.props.selectedStudent.lastName
+                <fieldset>
+                    <legend>Edit Information</legend>
+                    Campus: <select onChange={this.handleCampusChange}>
+                        <option id='0'>Select a Campus</option>
+                        {
+                            this.props.campuses.map(campus => {
+                                return <option key={campus.id}>{campus.name}</option>
+                            })
+                        }
+                    </select>
+                    First Name: <input type='text' value={this.state.firstNameInput}
+                        placeholder={this.props.selectedStudent.firstName
                             ?
-                            this.props.selectedStudent.lastName : 'Required'} 
-                            onChange={this.handleLastNameChange}/><br/>
-                Email: <input type='text' value={this.state.emailInput} 
-                            placeholder={this.props.selectedStudent.email
+                            this.props.selectedStudent.firstName : 'Required'}
+                        onChange={this.handleFirstNameChange} /><br />
+                    Last Name: <input type='text' value={this.state.lastNameInput}
+                        placeholder={this.props.selectedStudent.lastName
                             ?
-                            this.props.selectedStudent.email: 'Required'} 
-                            onChange={this.handleEmailChange}/><br/>
-                GPA: <input type='text' placeholder='0.0 to 4.0' onChange={this.handleGPAChange}/><br/>
-                <button type='submit'>Edit</button>
-            </fieldset>
-        </form>
+                            this.props.selectedStudent.lastName : 'Required'}
+                        onChange={this.handleLastNameChange} /><br />
+                    Email: <input type='text' value={this.state.emailInput}
+                        placeholder={this.props.selectedStudent.email
+                            ?
+                            this.props.selectedStudent.email : 'Required'}
+                        onChange={this.handleEmailChange} /><br />
+                    GPA: <input type='text' value={this.state.gpaInput}
+                        placeholder={this.props.selectedStudent.gpa
+                            ?
+                            this.props.selectedStudent.gpa : '0.0 to 4.0'}
+                        onChange={this.handleGPAChange} /><br />
+                    Profile Picture: <input type='text' value={this.state.imageUrlInput}
+                        placeholder={this.props.selectedStudent.imageUrl
+                            ?
+                            this.props.selectedStudent.imageUrl : 'URL'}
+                        onChange={this.handleImageUrlChange} /><br />
+                    <button type='submit'>Edit</button>
+                </fieldset>
+            </form>
         )
     }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
     return {
         campuses: state.campuses,
         selectedStudent: state.selectedStudent
     }
 }
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
     return {
-        loadCampuses: function() {
+        loadCampuses: function () {
             dispatch(fetchCampuses());
         },
-        loadStudent: function(id) {
+        loadStudent: function (id) {
             dispatch(fetchStudent(id));
         }
     }

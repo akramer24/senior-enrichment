@@ -15,6 +15,7 @@ class CreateStudent extends Component {
             lastNameInput: '',
             emailInput: '',
             gpaInput: '',
+            imageUrlInput: '',
             campusIdInput: null,
             isIdDirty: false
         }
@@ -24,6 +25,7 @@ class CreateStudent extends Component {
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleGPAChange = this.handleGPAChange.bind(this);
+        this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
         this.handleCampusChange = this.handleCampusChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -38,6 +40,7 @@ class CreateStudent extends Component {
             lastName: student.lastName,
             email: student.email,
             gpa: student.gpa,
+            imageUrl: student.imageUrl,
             campusId: student.campusId
         })
             .then(res => res.data)
@@ -61,6 +64,10 @@ class CreateStudent extends Component {
         this.setState({gpaInput: Number(event.target.value)});
     }
 
+    handleImageUrlChange(event) {
+        this.setState({imageUrlInput: event.target.value});
+    }
+
     handleCampusChange(event) {
         const campus = this.props.campuses.find(campus => {
             return campus.name == event.target.value;
@@ -79,6 +86,7 @@ class CreateStudent extends Component {
                     lastName: this.state.lastNameInput,
                     email: this.state.emailInput,
                     gpa: this.state.gpaInput,
+                    imageUrl: this.state.imageUrlInput,
                     campusId: this.state.campusIdInput
                 }
             )
@@ -87,6 +95,7 @@ class CreateStudent extends Component {
                 lastNameInput: '',
                 emailInput: '',
                 gpaInput: '',
+                imageUrlInput: '',
                 campusIdInput: null
             });
         }
@@ -109,6 +118,7 @@ class CreateStudent extends Component {
                     Last Name: <input type='text' value={this.state.lastNameInput} placeholder='Required' onChange={this.handleLastNameChange}/><br/>
                     Email: <input type='text' value={this.state.emailInput} placeholder='Required' onChange={this.handleEmailChange}/><br/>
                     GPA: <input type='text' placeholder='0.0 to 4.0' onChange={this.handleGPAChange}/><br/>
+                    Profile picture: <input type='text' placeholder='URL' onChange={this.handleImageUrlChange}/><br/>
                     <button type='submit'>Create</button>
                 </fieldset>
             </form>

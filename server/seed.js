@@ -1,17 +1,17 @@
 const { db, Student, Campus } = require('./db/models');
 
 const data = {
-    // campuses: [
-    //     {
-    //         name: 'Binghamton',
-    //         description: 'the public ivy of the northeast'
-    //     },
+    campuses: [
+        {
+            name: 'Binghamton',
+            description: 'the public ivy of the northeast'
+        },
 
-    //     {
-    //         name: 'Northwestern',
-    //         description: 'some private school near chicago'
-    //     }
-    // ],
+        {
+            name: 'Northwestern',
+            description: 'some private school near chicago'
+        }
+    ],
 
     students: [
         {
@@ -19,10 +19,7 @@ const data = {
             lastName: 'Kramer',
             email: 'a@a.com',
             gpa: '3.5',
-            campus: {
-                name: 'Binghamton',
-                description: 'the public ivy of the northeast'
-            }
+            campusId: 1
         },
 
         {
@@ -30,10 +27,7 @@ const data = {
             lastName: 'Ivry',
             email: 'j@j.com',
             gpa: '3.3',
-            campus: {
-                name: 'Binghamton',
-                description: 'the public ivy of the northeast'
-            }
+            campusId: 1
         },
 
         {
@@ -41,10 +35,7 @@ const data = {
             lastName: 'Starace',
             email: 'c@a.com',
             gpa: '3.6',
-            campus: {
-                name: 'Binghamton',
-                description: 'the public ivy of the northeast'
-            }
+            campusId: 1
         },
 
         {
@@ -52,23 +43,20 @@ const data = {
             lastName: 'Kramer',
             email: 'j@a.com',
             gpa: '3.5',
-            campus: {
-                name: 'Northwestern',
-                description: 'some private school near chicago'
-            }
+            campusId: 2
         }
     ]
 }
 
 db.sync({force: true})
-    // .then(() => {
-    //     data.campuses.forEach(campus => {
-    //         Campus.create(campus)
-    //     })
-    // })
-    // .then(() => {
-    //     data.students.forEach(student => {
-    //         Student.create(student)
-    //     })
-    // })
+    .then(() => {
+        data.campuses.forEach(campus => {
+            Campus.create(campus)
+        })
+    })
+    .then(() => {
+        data.students.forEach(student => {
+            Student.create(student)
+        })
+    })
     .catch(err => console.error(err));

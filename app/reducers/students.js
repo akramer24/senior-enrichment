@@ -3,6 +3,7 @@ import axios from 'axios';
 const GET_STUDENTS = 'GET_STUDENTS';
 const GET_STUDENT = 'GET_STUDENT';
 const UPDATE_STUDENT = 'UPDATE_STUDENT';
+const REMOVE_STUDENT = 'REMOVE_STUDENT';
 
 export function getStudents(students) {
     return {
@@ -21,6 +22,13 @@ export function getStudent(student) {
 export function updateStudent(student) {
     return {
         type: UPDATE_STUDENT,
+        student
+    }
+}
+
+export function removeStudent(student) {
+    return {
+        type: REMOVE_STUDENT,
         student
     }
 }
@@ -46,6 +54,10 @@ function studentReducer(state = [], action) {
             return state.filter(student => {
                 return student.id !== action.student.id;
             }).concat(action.student);
+        case REMOVE_STUDENT:
+            return state.filter(student => {
+                return student.id !== action.student.id;
+            })
         default:
             return state;
     }

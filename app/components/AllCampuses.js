@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCampuses, fetchStudents } from '../reducers';
+import { fetchCampuses, fetchStudents, removeCampus, removeStudent } from '../reducers';
 import CreateCampus from './CreateCampus';
 import axios from 'axios';
+import store from '../store';
 
 
 class AllCampuses extends Component {
@@ -11,7 +12,6 @@ class AllCampuses extends Component {
     constructor() {
         super();
 
-        this.handleDelete = this.handleDelete.bind(this);
         this.deleteCampus = this.deleteCampus.bind(this);
         this.deleteStudents = this.deleteStudents.bind(this);
     }
@@ -23,7 +23,7 @@ class AllCampuses extends Component {
 
     deleteCampus(campus) {
         axios.delete(`/api/campuses/${campus.id}`)
-            .then(res => res.data)
+            .then(() => store.dispatch(removeCampus(campus)))
             .catch(err => console.error(err));
     }
 
@@ -33,7 +33,7 @@ class AllCampuses extends Component {
         })
         toBeDeleted.forEach(student => {
             axios.delete(`/api/students/${student.id}`)
-                .then(res => res.data)
+                .then(() => store.dispatch(removeStudent(student)))
                 .catch(err => console.error(err));
         })
     }

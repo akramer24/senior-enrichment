@@ -48,8 +48,8 @@ export default class CreateCampus extends Component {
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Create a Campus</legend>
-                    Name: <input type='text' onChange={this.handleNameChange}/><br/>
-                    Description: <input type='text' onChange={this.handleDescriptionChange}/><br/>
+                    Name: <input type='text' value={this.state.campusNameInput} placeholder='Required' onChange={this.handleNameChange}/><br/>
+                    Description: <input type='text' value={this.state.descriptionInput} placeholder='Required' onChange={this.handleDescriptionChange}/><br/>
                     <button type='submit'>Create</button>
                 </fieldset>
             </form>
