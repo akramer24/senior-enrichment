@@ -58,12 +58,11 @@ class EditFrat extends Component {
             description: this.state.descriptionInput,
             imageUrl: this.state.imageUrlInput
         })
-        alert('Submitted')
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form id='edit-frat' onSubmit={this.handleSubmit}>
 
                 <h3>Edit {this.props.selectedFrat.name}'s Information</h3>
                 Name: <input type='text' value={this.state.nameInput}
