@@ -5,6 +5,11 @@ export default function Navbar() {
     return (
         <div id='navbar'>
             <div className='navbar-item'>
+                <NavLink to='/' className='navlink'>
+                    <span>Home</span>
+                </NavLink>
+            </div>
+            <div className='navbar-item'>
                 <NavLink to='/frats' className='navlink'>
                     <span>Frats</span>
                 </NavLink>

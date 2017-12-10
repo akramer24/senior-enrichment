@@ -58,11 +58,19 @@ const data = {
         {
             firstName: 'Lawrence',
             lastName: 'Kroger',
-            nickname: 'Larry',
+            nickname: 'Pinto',
             email: 'larry@dtc.com',
             imageUrl: 'https://cdn.vox-cdn.com/uploads/chorus_asset/file/9335997/AnimalHouse_216Pyxurz.jpg',
             gpa: '1.2',
             fratId: 2
+        },
+        {
+            firstName: 'Greg',
+            lastName: 'Marmalard',
+            email: 'greg@otp.com',
+            imageUrl: 'https://3.bp.blogspot.com/-vRSRWvUx9qw/Vv_6wnqDl-I/AAAAAAAAoVU/inpocwvocVkkGta7tpCNA_CV0rMGFUOgA/s1600/AnimalHouse_221Pyxurz.jpg',
+            gpa: '3.9',
+            fratId: 1
         }
     ]
 }

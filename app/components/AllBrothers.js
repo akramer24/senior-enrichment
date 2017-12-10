@@ -5,6 +5,7 @@ import { fetchBrothers, removeBrother } from '../reducers';
 import CreateBrother from './CreateBrother';
 import axios from 'axios';
 import store from '../store';
+import BrotherAttributes from './BrotherAttributes';
 
 class AllBrothers extends Component {
 
@@ -32,8 +33,10 @@ class AllBrothers extends Component {
         return (
             <div>
                 <div id='brother-list'>
+                <CreateBrother />
                     {
                         this.props.brothers.map(brother => {
+                            console.log(brother);
                             return (
                                 <div key={brother.id} className='brother-item'>
                                     <NavLink to={`/brothers/${brother.id}`} className='brother-name'>
@@ -41,30 +44,15 @@ class AllBrothers extends Component {
                                             <h1>{brother.name}</h1>
                                         </div>
                                     </NavLink>
-                                    <NavLink to={`/frats/${brother.fratId}`}>
+                                    <NavLink to={`/frats/${brother.fratId}`} className='frat-name'>
                                         <h3>{brother.frat && brother.frat.name}</h3>
                                     </NavLink>
-                                    <div className='brother-flex'>
-                                        <ul className='brother-attributes'>
-                                            {
-                                                brother.nickname ? <li><span className='attribute-title'>Nickname: </span>{brother.nickname}</li>
-                                                : <li/>
-                                            }
-                                            <li><span className='attribute-title'>Email: </span>{brother.email}</li>
-                                            <li><span className='attribute-title'>GPA: </span>{brother.gpa}</li>
-                                        </ul>
-                                        <div>
-                                            <img src={brother.imageUrl} className='brother-img'/>    
-                                        </div>
-                                    </div>
+                                    <BrotherAttributes brother={brother}/>
                                     <button onClick={this.handleDelete.bind(this, brother)}>Delete</button>
                                 </div>
                             )
                         })
                     }
-                </div>
-                <div>
-                    <CreateBrother />
                 </div>
             </div>
         )

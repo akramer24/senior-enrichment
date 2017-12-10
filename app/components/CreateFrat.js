@@ -6,7 +6,7 @@ import { getFrat } from '../reducers';
 export default class CreateFrat extends Component {
     constructor() {
         super();
-        
+
         this.state = {
             fratNameInput: '',
             descriptionInput: ''
@@ -25,34 +25,35 @@ export default class CreateFrat extends Component {
     }
 
     handleNameChange(event) {
-        this.setState({fratNameInput: event.target.value});
+        this.setState({ fratNameInput: event.target.value });
     }
 
     handleDescriptionChange(event) {
-        this.setState({descriptionInput: event.target.value});
+        this.setState({ descriptionInput: event.target.value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
         this.createNewFrat(
             {
-                name: this.state.fratNameInput, 
+                name: this.state.fratNameInput,
                 description: this.state.descriptionInput
             }
         );
-        this.setState({fratNameInput: '', descriptionInput: ''})
+        this.setState({ fratNameInput: '', descriptionInput: '' })
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Create a Frat</legend>
-                    Name: <input type='text' value={this.state.fratNameInput} placeholder='Required' onChange={this.handleNameChange}/><br/>
-                    Description: <input type='text' value={this.state.descriptionInput} placeholder='Required' onChange={this.handleDescriptionChange}/><br/>
+            <div id='create-frat'>
+                <form onSubmit={this.handleSubmit}>
+                    <h3>Create a Frat</h3>
+                    Name: <input type='text' value={this.state.fratNameInput} placeholder='Required' onChange={this.handleNameChange} /><br />
+                    Description: <input type='text' value={this.state.descriptionInput} placeholder='Required' onChange={this.handleDescriptionChange} /><br />
                     <button type='submit'>Create</button>
-                </fieldset>
-            </form>
+
+                </form>
+            </div>
         )
     }
 

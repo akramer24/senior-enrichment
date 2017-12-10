@@ -9,7 +9,7 @@ import { updateBrother, fetchFrats, fetchBrother } from '../reducers';
 class EditBrother extends Component {
     constructor(props) {
         super(props);
-        const brother = this.props.selectedBrother;        
+        const brother = this.props.selectedBrother;
         this.state = {
             firstNameInput: brother.firstName,
             lastNameInput: brother.lastName,
@@ -106,28 +106,28 @@ class EditBrother extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Edit Information</legend>
-                    frat: <select onChange={this.handleFratChange}>
-                        <option selected disabled hidden>Select a frat</option>
-                        {
-                            this.props.frats.map(frat => {
-                                return <option key={frat.id}>{frat.name}</option>
-                            })
-                        }
-                    </select>
-                    First Name: <input type='text' value={this.state.firstNameInput}
-                        onChange={this.handleFirstNameChange} /><br />
-                    Last Name: <input type='text' value={this.state.lastNameInput}
-                        onChange={this.handleLastNameChange} /><br />
-                    Email: <input type='text' value={this.state.emailInput}
-                        onChange={this.handleEmailChange} /><br />
-                    GPA: <input type='text' value={this.state.gpaInput}
-                        onChange={this.handleGPAChange} /><br />
-                    Profile Picture: <input type='text' value={this.state.imageUrlInput}
-                        onChange={this.handleImageUrlChange} /><br />
-                    <button type='submit'>Edit</button>
-                </fieldset>
+
+                <h3>Edit {this.props.selectedBrother.name}'s Information</h3>
+                Frat: <select onChange={this.handleFratChange}>
+                    <option selected disabled hidden>Select a frat</option>
+                    {
+                        this.props.frats.map(frat => {
+                            return <option key={frat.id}>{frat.name}</option>
+                        })
+                    }
+                </select><br />
+                First Name: <input type='text' value={this.state.firstNameInput}
+                    onChange={this.handleFirstNameChange} /><br />
+                Last Name: <input type='text' value={this.state.lastNameInput}
+                    onChange={this.handleLastNameChange} /><br />
+                Email: <input type='text' value={this.state.emailInput}
+                    onChange={this.handleEmailChange} /><br />
+                GPA: <input type='text' value={this.state.gpaInput}
+                    onChange={this.handleGPAChange} /><br />
+                Profile Picture: <input type='text' value={this.state.imageUrlInput}
+                    onChange={this.handleImageUrlChange} /><br />
+                <button type='submit'>Edit</button>
+
             </form>
         )
     }

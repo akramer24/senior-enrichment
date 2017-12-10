@@ -2,7 +2,11 @@ const fratRotuer = require('express').Router()
 const {db, Frat, Brother} = require('../db/models')
 
 fratRotuer.get('/', (req, res, next) => {
-    Frat.findAll()
+    Frat.findAll({
+        order: [
+            ['name', 'ASC']
+        ]
+    })
         .then(result => res.send(result))
         .catch(next)
 })

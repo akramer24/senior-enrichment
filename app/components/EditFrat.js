@@ -72,14 +72,14 @@ class EditFrat extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-            <fieldset>
-                <legend>Edit Frat Information</legend>
+        
+                <h3>Edit Frat Information</h3> 
                 Name: <input type='text' value={this.state.nameInput}  
                         onChange={this.handleNameChange}/><br/>
                 Description: <input type='text' value={this.state.descriptionInput}  
                         onChange={this.handleDescriptionChange}/><br/>
                 <button type='submit'>Edit</button>
-            </fieldset>
+            
         </form>
         )
     }

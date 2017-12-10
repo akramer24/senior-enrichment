@@ -5,6 +5,7 @@ import AllBrothers from './AllBrothers';
 import SingleFrat from './SingleFrat';
 import SingleBrother from './SingleBrother';
 import Navbar from './Navbar';
+import Home from './Home';
 
 function Main() {
     return (
@@ -12,6 +13,7 @@ function Main() {
             <div>
                 <Navbar />
                 <Switch>
+                    <Route exact path='/' component={Home} />
                     <Route exact path='/frats' component={AllFrats} />
                     <Route path='/frats/:fratId' component={SingleFrat} />
                     <Route exact path='/brothers' component={AllBrothers} />

@@ -1,14 +1,21 @@
 const brotherRouter = require('express').Router()
-const {db, Brother} = require('../db/models')
+const { db, Brother } = require('../db/models')
 
 brotherRouter.get('/', (req, res, next) => {
-    Brother.findAll({include: [{all: true}]})
+    Brother.findAll({
+        order: [
+            ['lastName', 'ASC']
+        ],
+        include: [{ all: true }]
+    })
         .then(result => res.send(result))
+        .catch(next);
 })
 
 brotherRouter.get('/:brotherId', (req, res, next) => {
     Brother.findById(req.params.brotherId)
         .then(result => res.send(result))
+        .catch(next);
 })
 
 brotherRouter.post('/', (req, res, next) => {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { fetchBrother, fetchFrats } from '../reducers';
 import EditBrother from './EditBrother';
+import BrotherAttributes from './BrotherAttributes';
 
 class SingleBrother extends Component {
 
@@ -20,7 +21,7 @@ class SingleBrother extends Component {
     }
 
     displayEdit() {
-        this.setState({displayForm: true});
+        this.setState({ displayForm: true });
     }
 
     render() {
@@ -29,25 +30,22 @@ class SingleBrother extends Component {
             return frat.id === brother.fratId
         })[0]
         return (
-            <div>
-                <h1>{brother.name}</h1>
+            <div id='brother-page'>
+                <h1 className='brother-name'>{brother.name}</h1>
                 {
                     frat ?
-                        <h3> 
-                            <NavLink to={`/frats/${frat.id}`}>
+                        <h3>
+                            <NavLink to={`/frats/${frat.id}`} className='frat-name'>
                                 {frat.name}
                             </NavLink>
                         </h3>
-                    :
-                    <h4></h4>
+                        :
+                        <h4></h4>
                 }
-                <ul>
-                    <li>Email: {brother.email}</li>
-                    <li>GPA: {brother.gpa}</li>
-                </ul>
+                <BrotherAttributes brother={brother}/>
                 <button onClick={this.displayEdit.bind(this)}>Edit Brother Info</button>
                 {
-                    this.state.displayForm ? <EditBrother display={this.state.displayForm}/> : <br/>
+                    this.state.displayForm ? <EditBrother display={this.state.displayForm} /> : <br />
                 }
             </div>
         )
@@ -55,19 +53,19 @@ class SingleBrother extends Component {
 
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
     return {
         selectedBrother: state.selectedBrother,
         frats: state.frats
     }
 }
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
     return {
-        loadBrother: function(id) {
+        loadBrother: function (id) {
             dispatch(fetchBrother(id))
         },
-        loadFrats: function() {
+        loadFrats: function () {
             dispatch(fetchFrats());
         }
     }

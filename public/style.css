@@ -27,13 +27,18 @@ body {
 }
 
 #navbar {
+    margin: 0;
     display: flex;
     background-color: #e06060;
+    position: fixed;
+    width: 100vw;
+    z-index: 2;
 }
 
 .navbar-item {
     margin: 0.5em;
     font-size: 2em;
+    font-family: 'GFS Neohellenic', sans-serif;    
 }
 
 .navlink {
@@ -41,8 +46,13 @@ body {
     color: #dbc4c4;
 }
 
-.navlink:hover {
+.navlink:hover, .frat-page-brother:hover {
     color: #110202;
+}
+
+#brother-list, #frat-list, #brother-page {
+    position: relative;
+    top: 69px;
 }
 
 .brother-attributes {
@@ -54,18 +64,20 @@ body {
 }
 
 .attribute-title {
-    color: black;
+    color: rgb(255, 101, 101);
+    text-shadow: 1px 1px 1px black;
+    font-size: 20px;
     font-weight: bold;
 }
 
-.brother-name {
+.brother-name, .frat-name {
     text-decoration: none;
     color: rgb(255, 255, 255);
     font-family: 'GFS Neohellenic', sans-serif;
     text-shadow: 2px 2px 2px black;
 }
 
-.brother-name:hover {
+.brother-name:hover, .frat-name:hover {
     color: rgb(29, 22, 25);
 }
 
@@ -76,4 +88,105 @@ body {
 .brother-img {
     width: 125px;
     height: 90px;
+}
+
+#brother-page img {
+    width: 300px;
+    height: 216px;
+    padding-right: 30px;
+}
+
+#brother-page, #frat-page {
+    width: 600px;
+    height: 400px;
+    background-color: #413e3eab;
+    border: 2px solid black;
+    position: relative;
+    left: 50%;
+    top: 100px;
+    margin-left: -300px;
+    padding: 20px;
+}
+
+.frat-img {
+    width: 200px;
+    height: 150px;
+}
+
+.frat-info {
+    display: flex;
+}
+
+.frat-info-item {
+    margin: 0px 5px 5px 5px;
+}
+
+.frat-info > h4 {
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+
+#create-brother, #create-frat {
+    position: relative;
+    top: calc(69px - 2.2em);
+    left: -7px;
+}
+
+#home {
+    position: relative;
+    top: 69px;
+    left: 50%;
+    margin-left: -280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-video {
+    margin: 30px 30px 0px 30px;
+}
+
+form {
+    width: 350px;
+    height: 275px;
+    margin: 0em 1em 0em 2em;
+    background-color: #e06060;
+    color: #dbc4c4;
+    border: 2px solid black;    
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.frat-page-text {
+    color: rgb(255, 255, 255);
+    font-family: 'GFS Neohellenic', sans-serif;
+    text-shadow: 2px 2px 2px black;
+}
+
+.frat-page-brother {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-family: 'GFS Neohellenic', sans-serif;
+    text-shadow: 1px 1px 1px black;
+}
+
+#frat-page ul {
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+#frat-page img {
+    width: 350px;
+    height: 240px;
+    margin-left: 23px;
+    margin-top: -21px;
+}
+
+#frat-page-header {
+    display: flex;
+    margin-bottom: -21px;
+}
+
+#frat-page-header button {
+    align-self: right;
+    margin: 32px 0px 0px 28px;
 }

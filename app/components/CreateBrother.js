@@ -20,7 +20,7 @@ class CreateBrother extends Component {
             fratIdInput: null,
             isIdDirty: false
         }
-        
+
         this.createNewBrother = this.createNewBrother.bind(this);
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -52,34 +52,34 @@ class CreateBrother extends Component {
     }
 
     handleFirstNameChange(event) {
-        this.setState({firstNameInput: event.target.value});
+        this.setState({ firstNameInput: event.target.value });
     }
 
     handleLastNameChange(event) {
-        this.setState({lastNameInput: event.target.value});
+        this.setState({ lastNameInput: event.target.value });
     }
 
     handleNicknameChange(event) {
-        this.setState({nicknameInput: event.target.value});
+        this.setState({ nicknameInput: event.target.value });
     }
 
     handleEmailChange(event) {
-        this.setState({emailInput: event.target.value});
+        this.setState({ emailInput: event.target.value });
     }
 
     handleGPAChange(event) {
-        this.setState({gpaInput: event.target.value});
+        this.setState({ gpaInput: event.target.value });
     }
 
     handleImageUrlChange(event) {
-        this.setState({imageUrlInput: event.target.value});
+        this.setState({ imageUrlInput: event.target.value });
     }
 
     handleFratChange(event) {
         const frat = this.props.frats.find(frat => {
             return frat.name == event.target.value;
         });
-        this.setState({fratIdInput: frat.id, isIdDirty: true});
+        this.setState({ fratIdInput: frat.id, isIdDirty: true });
     }
 
     handleSubmit(event) {
@@ -132,39 +132,41 @@ class CreateBrother extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Create a Brother</legend>
-                    Frat: <select onChange={this.handleFratChange}>
-                        <option selected disabled hidden>>Select a Frat</option>
-                        {
-                            this.props.frats.map(frat => {
-                                return <option key={frat.id}>{frat.name}</option>
-                            })
-                        }
-                    </select>
-                    First Name: <input type='text' value={this.state.firstNameInput} placeholder='Required' onChange={this.handleFirstNameChange}/><br/>
-                    Last Name: <input type='text' value={this.state.lastNameInput} placeholder='Required' onChange={this.handleLastNameChange}/><br/>
-                    Nickname: <input type='text' value={this.state.nicknameInput} onChange={this.handleNicknameChange}/><br/>                    
-                    Email: <input type='text' value={this.state.emailInput} placeholder='Required' onChange={this.handleEmailChange}/><br/>
-                    GPA: <input type='text' value={this.state.gpaInput} placeholder='0.0 to 4.0' onChange={this.handleGPAChange}/><br/>
-                    Profile picture: <input type='text' placeholder='URL' onChange={this.handleImageUrlChange}/><br/>
-                    <button type='submit'>Create</button>
-                </fieldset>
-            </form>
+            <div id='create-brother'>
+                <form onSubmit={this.handleSubmit}>
+                
+                        <h3>Create a Brother</h3>
+                        Frat: <select onChange={this.handleFratChange}>
+                            <option selected disabled hidden>>Select a Frat</option>
+                            {
+                                this.props.frats.map(frat => {
+                                    return <option key={frat.id}>{frat.name}</option>
+                                })
+                            }
+                        </select><br/>
+                        First Name: <input type='text' value={this.state.firstNameInput} placeholder='Required' onChange={this.handleFirstNameChange} /><br />
+                        Last Name: <input type='text' value={this.state.lastNameInput} placeholder='Required' onChange={this.handleLastNameChange} /><br />
+                        Nickname: <input type='text' value={this.state.nicknameInput} onChange={this.handleNicknameChange} /><br />
+                        Email: <input type='text' value={this.state.emailInput} placeholder='Required' onChange={this.handleEmailChange} /><br />
+                        GPA: <input type='text' value={this.state.gpaInput} placeholder='0.0 to 4.0' onChange={this.handleGPAChange} /><br />
+                        Profile picture: <input type='text' placeholder='URL' onChange={this.handleImageUrlChange} /><br />
+                        <button type='submit'>Create</button>
+                    
+                </form>
+            </div>
         )
     }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
     return {
         frats: state.frats
     }
 }
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
     return {
-        loadFrats: function() {
+        loadFrats: function () {
             dispatch(fetchFrats());
         }
     }

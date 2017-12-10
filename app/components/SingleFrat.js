@@ -13,35 +13,45 @@ class SingleFrat extends Component {
             displayForm: false
         }
     }
-    
+
     componentDidMount() {
         this.props.loadFrat(this.props.match.params.fratId);
         this.props.loadBrotheres();
     }
 
     displayEdit() {
-        this.setState({displayForm: true});
+        this.setState({ displayForm: true });
     }
 
     render() {
         return (
-            <div>
-                <h3>You have selected: {this.props.selectedFrat.name}</h3>
-                <h4>These are this frats' brothers: {
-                    this.props.brothers.filter(brother => {
-                        return brother.fratId === this.props.selectedFrat.id
-                    })
-                    .map(brother => {
-                        return (
-                            <NavLink to={`/brothers/${brother.id}`} key={brother.id}>
-                                <li>{brother.name}</li>
-                            </NavLink>
-                        )
-                    })
-                } </h4>
-                <button onClick={this.displayEdit.bind(this)}>Edit Frat Info</button>
+            <div id='frat-page'>
+                <div id='frat-page-header'>
+                    <h1 className='frat-page-text'>{this.props.selectedFrat.name}</h1>
+                    <button onClick={this.displayEdit.bind(this)}>Edit Frat Info</button>
+                </div>
+                <h3 className='frat-page-text'>{this.props.selectedFrat.description}</h3>
+                <h3 className='attribute-title'>Brothers: <br />
+                    <div className='frat-info'>
+                        <ul>
+                            {
+                                this.props.brothers.filter(brother => {
+                                    return brother.fratId === this.props.selectedFrat.id
+                                })
+                                    .map(brother => {
+                                        return (
+                                            <NavLink to={`/brothers/${brother.id}`} key={brother.id} className='frat-page-brother'>
+                                                <li>{brother.name}</li>
+                                            </NavLink>
+                                        )
+                                    })
+                            }
+                        </ul>
+                        <img src={this.props.selectedFrat.imageUrl} className='frat-img frat-info-item' />
+                    </div>
+                </h3>
                 {
-                    this.state.displayForm ? <EditFrat display={this.state.displayForm}/> : <br/>
+                    this.state.displayForm ? <EditFrat display={this.state.displayForm} /> : <br />
                 }
             </div>
         )
@@ -49,19 +59,19 @@ class SingleFrat extends Component {
 
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
     return {
         selectedFrat: state.selectedFrat,
         brothers: state.brothers
     }
 }
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
     return {
-        loadFrat: function(id) {
+        loadFrat: function (id) {
             dispatch(fetchFrat(id))
         },
-        loadBrotheres: function() {
+        loadBrotheres: function () {
             dispatch(fetchBrothers());
         }
     }

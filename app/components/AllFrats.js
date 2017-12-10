@@ -47,14 +47,18 @@ class AllFrats extends Component {
         return (
             <div>
                 <div id='frat-list'>
+                    <CreateFrat />
                     {
                         this.props.frats.map(frat => {
                             return (
                                 <div key={frat.id} className='frat-item'>
-                                    <NavLink to={`/frats/${frat.id}`}>
+                                    <NavLink to={`/frats/${frat.id}`} className='frat-name'>
                                         <h1>{frat.name}</h1>
                                     </NavLink>
-                                    <img src={frat.imageUrl} />
+                                    <div className='frat-info'>
+                                        <img src={frat.imageUrl} className='frat-img frat-info-item' />
+                                        <h4 className='frat-info-item'>{frat.description}</h4>
+                                    </div>
                                     <div>
                                         <button onClick={this.handleDelete.bind(this, frat)}>Delete</button>
                                     </div>
@@ -63,11 +67,8 @@ class AllFrats extends Component {
                         })
                     }
                 </div>
-                <div>
-                    <CreateFrat />
-                </div>
             </div>
-       )
+        )
     }
 }
 
@@ -83,7 +84,7 @@ const mapDispatchToProps = function (dispatch) {
         loadFrats: function () {
             dispatch(fetchFrats());
         },
-        loadBrothers: function() {
+        loadBrothers: function () {
             dispatch(fetchBrothers());
         }
     }
