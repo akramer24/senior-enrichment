@@ -9,16 +9,18 @@ export default class CreateFrat extends Component {
 
         this.state = {
             fratNameInput: '',
-            descriptionInput: ''
+            descriptionInput: '',
+            imageUrlInput: ''
         }
 
         this.createNewFrat = this.createNewFrat.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
     }
     createNewFrat(frat) {
-        axios.post('/api/frats', { name: frat.name, description: frat.description })
+        axios.post('/api/frats', { name: frat.name, description: frat.description, imageUrl: frat.imageUrl })
             .then(res => res.data)
             .then(frat => store.dispatch(getFrat(frat)))
             .catch(err => console.error(err));
@@ -32,15 +34,29 @@ export default class CreateFrat extends Component {
         this.setState({ descriptionInput: event.target.value });
     }
 
+    handleImageUrlChange(event) {
+        this.setState({ imageUrlInput: event.target.value });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
-        this.createNewFrat(
-            {
-                name: this.state.fratNameInput,
-                description: this.state.descriptionInput
-            }
-        );
-        this.setState({ fratNameInput: '', descriptionInput: '' })
+        if (this.state.imageUrlInput) {
+            this.createNewFrat(
+                {
+                    name: this.state.fratNameInput,
+                    description: this.state.descriptionInput,
+                    imageUrl: this.state.imageUrlInput
+                }
+            );
+        } else {
+            this.createNewFrat(
+                {
+                    name: this.state.fratNameInput,
+                    description: this.state.descriptionInput
+                }
+            )
+        }
+        this.setState({ fratNameInput: '', descriptionInput: '', imageUrlInput: '' })
     }
 
     render() {
@@ -50,6 +66,7 @@ export default class CreateFrat extends Component {
                     <h3>Create a Frat</h3>
                     Name: <input type='text' value={this.state.fratNameInput} placeholder='Required' onChange={this.handleNameChange} /><br />
                     Description: <input type='text' value={this.state.descriptionInput} placeholder='Required' onChange={this.handleDescriptionChange} /><br />
+                    Picture: <input type='text' value={this.state.imageUrlInput} placeholder='Required' onChange={this.handleImageUrlChange} /><br />
                     <button type='submit'>Create</button>
 
                 </form>

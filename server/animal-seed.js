@@ -49,7 +49,7 @@ const data = {
             firstName: 'Kent',
             lastName: 'Dorfman',
             nickname: 'Flounder',
-            email: 'j@a.com',
+            email: 'kent@dtc.com',
             imageUrl: 'https://ewedit.files.wordpress.com/2017/06/furst.jpg?w=2000',
             gpa: '0.2',
             fratId: 2

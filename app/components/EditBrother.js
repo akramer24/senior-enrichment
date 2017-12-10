@@ -46,18 +46,6 @@ class EditBrother extends Component {
             .then(res => res.data)
             .then(brother => store.dispatch(updateBrother(brother)))
             .then(() => this.props.loadBrother(this.props.match.params.brotherId))
-            .then(() => {
-                console.log('made it to submit')
-                this.setState({
-                    firstNameInput: '',
-                    lastNameInput: '',
-                    emailInput: '',
-                    gpaInput: '',
-                    imageUrlInput: '',
-                    fratIdInput: null
-                });
-                console.log('submitted', this.state)
-            })
             .catch(err => console.error(err));
     }
 
@@ -80,6 +68,10 @@ class EditBrother extends Component {
     handleImageUrlChange(event) {
         this.setState({ imageUrlInput: event.target.value });
     }
+
+    // handleChange(event, key) {
+    //     this.setState({ key: event.target.value })
+    // }
 
     handleFratChange(event) {
         const frat = this.props.frats.find(frat => {

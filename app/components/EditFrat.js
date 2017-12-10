@@ -8,51 +8,46 @@ import { fetchFrat, updateFrat } from '../reducers';
 class EditFrat extends Component {
     constructor(props) {
         super(props);
-
+        const frat = this.props.selectedFrat;
         this.state = {
-            nameInput: '',
-            descriptionInput: ''
+            nameInput: frat.name,
+            descriptionInput: frat.description,
+            imageUrlInput: frat.imageUrl
         }
 
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
         this.editFrat = this.editFrat.bind(this);
     }
 
     componentDidMount() {
         this.props.loadFrat(this.props.match.params.fratId);
-
-        const frat = this.props.selectedFrat;
-
-        this.setState({
-            nameInput: frat.name,
-            descriptionInput: frat.description
-        })
     }
 
     editFrat(frat) {
         axios.put(`/api/frats/${this.props.match.params.fratId}`, {
             name: frat.name,
-            description: frat.description
+            description: frat.description,
+            imageUrl: frat.imageUrl
         })
             .then(res => res.data)
-            .then(frat => {
-                console.log('made it');
-                store.dispatch(updateFrat(frat))
-            })
-            .then(() => {
-                this.props.loadFrat(this.props.match.params.fratId
-            )})
+            .then(frat => store.dispatch(updateFrat(frat)))
+            .then(() => this.props.loadFrat(this.props.match.params.fratId))
             .catch(err => console.error(err));
     }
 
     handleNameChange(event) {
-        this.setState({nameInput: event.target.value});
+        this.setState({ nameInput: event.target.value });
     }
 
     handleDescriptionChange(event) {
-        this.setState({descriptionInput: event.target.value});
+        this.setState({ descriptionInput: event.target.value });
+    }
+
+    handleImageUrlChange(event) {
+        this.setState({ imageUrlInput: event.target.value });
     }
 
     handleSubmit(event) {
@@ -60,11 +55,8 @@ class EditFrat extends Component {
 
         this.editFrat({
             name: this.state.nameInput,
-            description: this.state.descriptionInput
-        })
-        this.setState({
-            name: '',
-            description: ''
+            description: this.state.descriptionInput,
+            imageUrl: this.state.imageUrlInput
         })
         alert('Submitted')
     }
@@ -72,28 +64,30 @@ class EditFrat extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-        
-                <h3>Edit Frat Information</h3> 
-                Name: <input type='text' value={this.state.nameInput}  
-                        onChange={this.handleNameChange}/><br/>
-                Description: <input type='text' value={this.state.descriptionInput}  
-                        onChange={this.handleDescriptionChange}/><br/>
+
+                <h3>Edit {this.props.selectedFrat.name}'s Information</h3>
+                Name: <input type='text' value={this.state.nameInput}
+                    onChange={this.handleNameChange} /><br />
+                Description: <input type='text' value={this.state.descriptionInput}
+                    onChange={this.handleDescriptionChange} /><br />
+                Picture: <input type='text' value={this.state.imageUrlInput}
+                    onChange={this.handleImageUrlChange} /><br />
                 <button type='submit'>Edit</button>
-            
-        </form>
+
+            </form>
         )
     }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
     return {
         selectedFrat: state.selectedFrat
     }
 }
 
-const mapDispatchToProps = function(dispatch) {
+const mapDispatchToProps = function (dispatch) {
     return {
-        loadFrat: function(id) {
+        loadFrat: function (id) {
             dispatch(fetchFrat(id));
         }
     }
