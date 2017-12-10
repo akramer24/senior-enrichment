@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
-import AllCampuses from './AllCampuses';
-import AllStudents from './AllStudents';
-import SingleCampus from './SingleCampus';
-import SingleStudent from './SingleStudent';
+import AllFrats from './AllFrats';
+import AllBrothers from './AllBrothers';
+import SingleFrat from './SingleFrat';
+import SingleBrother from './SingleBrother';
 import Navbar from './Navbar';
 
 function Main() {
@@ -12,10 +12,10 @@ function Main() {
             <div>
                 <Navbar />
                 <Switch>
-                    <Route exact path='/campuses' component={AllCampuses} />
-                    <Route path='/campuses/:campusId' component={SingleCampus} />
-                    <Route exact path='/students' component={AllStudents} />
-                    <Route path='/students/:studentId' component={SingleStudent} />
+                    <Route exact path='/frats' component={AllFrats} />
+                    <Route path='/frats/:fratId' component={SingleFrat} />
+                    <Route exact path='/brothers' component={AllBrothers} />
+                    <Route path='/brothers/:brotherId' component={SingleBrother} />
                 </Switch>
             </div>
         </Router>

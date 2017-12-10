@@ -5,13 +5,13 @@ export default function Navbar() {
     return (
         <div id='navbar'>
             <div className='navbar-item'>
-                <NavLink to='/campuses' className='navlink'>
-                    <span>Campuses</span>
+                <NavLink to='/frats' className='navlink'>
+                    <span>Frats</span>
                 </NavLink>
             </div>
             <div className='navbar-item'>
-                <NavLink to='/students' className='navlink'>
-                    <span>Students</span>
+                <NavLink to='/brothers' className='navlink'>
+                    <span>Brothers</span>
                 </NavLink>
             </div>
         </div>

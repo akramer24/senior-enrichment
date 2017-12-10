@@ -3,49 +3,49 @@ import { connect } from 'react-redux';
 import { withRouter, Route, NavLink } from 'react-router-dom';
 import store from '../store';
 import axios from 'axios';
-import { updateStudent, fetchCampuses, fetchStudent } from '../reducers';
+import { updateBrother, fetchFrats, fetchBrother } from '../reducers';
 
 
-class EditStudent extends Component {
+class EditBrother extends Component {
     constructor(props) {
         super(props);
-        const student = this.props.selectedStudent;        
+        const brother = this.props.selectedBrother;        
         this.state = {
-            firstNameInput: student.firstName,
-            lastNameInput: student.lastName,
-            emailInput: student.email,
-            gpaInput: student.gpa,
-            imageUrlInput: student.imageUrl,
-            campusIdInput: student.campusId
+            firstNameInput: brother.firstName,
+            lastNameInput: brother.lastName,
+            emailInput: brother.email,
+            gpaInput: brother.gpa,
+            imageUrlInput: brother.imageUrl,
+            fratIdInput: brother.fratId
         }
 
-        this.editStudent = this.editStudent.bind(this);
+        this.editBrother = this.editBrother.bind(this);
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleGPAChange = this.handleGPAChange.bind(this);
         this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
-        this.handleCampusChange = this.handleCampusChange.bind(this);
+        this.handleFratChange = this.handleFratChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
-        this.props.loadStudent(this.props.match.params.studentId);
-        this.props.loadCampuses();
+        this.props.loadBrother(this.props.match.params.brotherId);
+        this.props.loadFrats();
     }
 
-    editStudent(student) {
-        axios.put(`/api/students/${this.props.match.params.studentId}`, {
-            firstName: student.firstName,
-            lastName: student.lastName,
-            email: student.email,
-            gpa: student.gpa,
-            imageUrl: student.imageUrl,
-            campusId: student.campusId
+    editBrother(brother) {
+        axios.put(`/api/brothers/${this.props.match.params.brotherId}`, {
+            firstName: brother.firstName,
+            lastName: brother.lastName,
+            email: brother.email,
+            gpa: brother.gpa,
+            imageUrl: brother.imageUrl,
+            fratId: brother.fratId
         })
             .then(res => res.data)
-            .then(student => store.dispatch(updateStudent(student)))
-            .then(() => this.props.loadStudent(this.props.match.params.studentId))
+            .then(brother => store.dispatch(updateBrother(brother)))
+            .then(() => this.props.loadBrother(this.props.match.params.brotherId))
             .then(() => {
                 console.log('made it to submit')
                 this.setState({
@@ -54,7 +54,7 @@ class EditStudent extends Component {
                     emailInput: '',
                     gpaInput: '',
                     imageUrlInput: '',
-                    campusIdInput: null
+                    fratIdInput: null
                 });
                 console.log('submitted', this.state)
             })
@@ -81,23 +81,23 @@ class EditStudent extends Component {
         this.setState({ imageUrlInput: event.target.value });
     }
 
-    handleCampusChange(event) {
-        const campus = this.props.campuses.find(campus => {
-            return campus.name == event.target.value;
+    handleFratChange(event) {
+        const frat = this.props.frats.find(frat => {
+            return frat.name == event.target.value;
         });
-        this.setState({ campusIdInput: campus.id });
+        this.setState({ fratIdInput: frat.id });
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.editStudent(
+        this.editBrother(
             {
                 firstName: this.state.firstNameInput,
                 lastName: this.state.lastNameInput,
                 email: this.state.emailInput,
                 gpa: this.state.gpaInput,
                 imageUrl: this.state.imageUrlInput,
-                campusId: this.state.campusIdInput
+                fratId: this.state.fratIdInput
             }
         )
         alert('submitted')
@@ -108,38 +108,23 @@ class EditStudent extends Component {
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Edit Information</legend>
-                    Campus: <select onChange={this.handleCampusChange}>
-                        <option selected disabled hidden>Select a Campus</option>
+                    frat: <select onChange={this.handleFratChange}>
+                        <option selected disabled hidden>Select a frat</option>
                         {
-                            this.props.campuses.map(campus => {
-                                return <option key={campus.id}>{campus.name}</option>
+                            this.props.frats.map(frat => {
+                                return <option key={frat.id}>{frat.name}</option>
                             })
                         }
                     </select>
                     First Name: <input type='text' value={this.state.firstNameInput}
-                        placeholder={this.props.selectedStudent.firstName
-                            ?
-                            this.props.selectedStudent.firstName : 'Required'}
                         onChange={this.handleFirstNameChange} /><br />
                     Last Name: <input type='text' value={this.state.lastNameInput}
-                        placeholder={this.props.selectedStudent.lastName
-                            ?
-                            this.props.selectedStudent.lastName : 'Required'}
                         onChange={this.handleLastNameChange} /><br />
                     Email: <input type='text' value={this.state.emailInput}
-                        placeholder={this.props.selectedStudent.email
-                            ?
-                            this.props.selectedStudent.email : 'Required'}
                         onChange={this.handleEmailChange} /><br />
                     GPA: <input type='text' value={this.state.gpaInput}
-                        placeholder={this.props.selectedStudent.gpa
-                            ?
-                            this.props.selectedStudent.gpa : '0.0 to 4.0'}
                         onChange={this.handleGPAChange} /><br />
                     Profile Picture: <input type='text' value={this.state.imageUrlInput}
-                        placeholder={this.props.selectedStudent.imageUrl
-                            ?
-                            this.props.selectedStudent.imageUrl : 'URL'}
                         onChange={this.handleImageUrlChange} /><br />
                     <button type='submit'>Edit</button>
                 </fieldset>
@@ -150,20 +135,20 @@ class EditStudent extends Component {
 
 const mapStateToProps = function (state) {
     return {
-        campuses: state.campuses,
-        selectedStudent: state.selectedStudent
+        frats: state.frats,
+        selectedBrother: state.selectedBrother
     }
 }
 
 const mapDispatchToProps = function (dispatch) {
     return {
-        loadCampuses: function () {
-            dispatch(fetchCampuses());
+        loadFrats: function () {
+            dispatch(fetchFrats());
         },
-        loadStudent: function (id) {
-            dispatch(fetchStudent(id));
+        loadBrother: function (id) {
+            dispatch(fetchBrother(id));
         }
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditStudent));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditBrother));

@@ -4,22 +4,26 @@
 
 body {
     margin: 0;
-    background-color: rgb(81, 84, 85);
+    background-image: url('http://cdn1-www.craveonline.com/assets/uploads/2014/06/Animal-House-splash.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-#student-list, #campus-list {
+#brother-list, #frat-list {
     display: flex;
     flex-wrap: wrap;    
 }
 
-.student-item, .campus-item {
+.brother-item, .frat-item {
     margin: 2em;
-    height: 250px;
-    width: 300px;
+    height: 275px;
+    width: 350px;
     border: 2px solid black;
     padding: 0px 10px 10px 10px;
     overflow: scroll;
-    background-color: #6089e0;
+    background-color: #413e3eab;
 }
 
 #navbar {
@@ -41,27 +45,35 @@ body {
     color: #110202;
 }
 
-.student-attributes {
+.brother-attributes {
     list-style: none;
     display: inline;
     margin-left: -20px;
     flex: 2;
+    color: white;
 }
 
-.student-name {
+.attribute-title {
+    color: black;
+    font-weight: bold;
+}
+
+.brother-name {
     text-decoration: none;
-    color: rgb(68, 44, 100);
+    color: rgb(255, 255, 255);
+    font-family: 'GFS Neohellenic', sans-serif;
+    text-shadow: 2px 2px 2px black;
 }
 
-.student-name:hover {
-    color: rgb(236, 93, 153);
+.brother-name:hover {
+    color: rgb(29, 22, 25);
 }
 
-.student-flex {
+.brother-flex {
     display: flex;
 }
 
-.student-img {
+.brother-img {
     width: 125px;
     height: 90px;
 }

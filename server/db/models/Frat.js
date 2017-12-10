@@ -1,7 +1,7 @@
 const db = require('../index.js');
 const Sequelize = require('sequelize');
 
-const Campus = db.define('campus', {
+const Frat = db.define('frat', {
 	name: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -22,4 +22,4 @@ const Campus = db.define('campus', {
 	}
 })
 
-module.exports = Campus;
+module.exports = Frat;

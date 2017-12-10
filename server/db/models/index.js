@@ -1,8 +1,8 @@
 'use strict';
 
 const db = require('../index');
-const Student = require('./Student.js');
-const Campus = require('./Campus.js');
+const Brother = require('./Brother.js');
+const Frat = require('./Frat.js');
 
 
 // Require all the models
@@ -13,10 +13,10 @@ const Campus = require('./Campus.js');
 // This is also probably a good place for you to set up your associations
 
 
-Student.belongsTo(Campus)
+Brother.belongsTo(Frat)
 
 module.exports = {
 	db,
-	Student,
-	Campus
+	Brother,
+	Frat
 };

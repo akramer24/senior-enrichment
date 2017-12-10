@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import store from '../store';
 import axios from 'axios';
-import { getCampus } from '../reducers';
+import { getFrat } from '../reducers';
 
-export default class CreateCampus extends Component {
+export default class CreateFrat extends Component {
     constructor() {
         super();
         
         this.state = {
-            campusNameInput: '',
+            fratNameInput: '',
             descriptionInput: ''
         }
 
-        this.createNewCampus = this.createNewCampus.bind(this);
+        this.createNewFrat = this.createNewFrat.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     }
-    createNewCampus(campus) {
-        axios.post('/api/campuses', { name: campus.name, description: campus.description })
+    createNewFrat(frat) {
+        axios.post('/api/frats', { name: frat.name, description: frat.description })
             .then(res => res.data)
-            .then(campus => store.dispatch(getCampus(campus)))
+            .then(frat => store.dispatch(getFrat(frat)))
             .catch(err => console.error(err));
     }
 
     handleNameChange(event) {
-        this.setState({campusNameInput: event.target.value});
+        this.setState({fratNameInput: event.target.value});
     }
 
     handleDescriptionChange(event) {
@@ -34,21 +34,21 @@ export default class CreateCampus extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.createNewCampus(
+        this.createNewFrat(
             {
-                name: this.state.campusNameInput, 
+                name: this.state.fratNameInput, 
                 description: this.state.descriptionInput
             }
         );
-        this.setState({campusNameInput: '', descriptionInput: ''})
+        this.setState({fratNameInput: '', descriptionInput: ''})
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
-                    <legend>Create a Campus</legend>
-                    Name: <input type='text' value={this.state.campusNameInput} placeholder='Required' onChange={this.handleNameChange}/><br/>
+                    <legend>Create a Frat</legend>
+                    Name: <input type='text' value={this.state.fratNameInput} placeholder='Required' onChange={this.handleNameChange}/><br/>
                     Description: <input type='text' value={this.state.descriptionInput} placeholder='Required' onChange={this.handleDescriptionChange}/><br/>
                     <button type='submit'>Create</button>
                 </fieldset>

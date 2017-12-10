@@ -1,7 +1,7 @@
 const db = require('../index.js');
 const Sequelize = require('sequelize');
 
-const Student = db.define('student', {
+const Brother = db.define('brother', {
 	firstName: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -16,15 +16,19 @@ const Student = db.define('student', {
 			notEmpty: true
 		}
 	},
+	nickname: {
+		type: Sequelize.STRING
+	},
 	email: {
 		type: Sequelize.STRING,
-		allowNull:false,
+		allowNull: false,
 		validate: {
 			isEmail: true
 		}
 	},
 	gpa: {
 		type: Sequelize.FLOAT,
+		allownull: true,
 		validate: {
 			min: 0.0,
 			max: 4.0
@@ -44,4 +48,4 @@ const Student = db.define('student', {
 	}
 )
 
-module.exports = Student;
+module.exports = Brother;

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import store from '../store';
 import axios from 'axios';
-import AllCampuses from './AllCampuses';
-import { getCampus, fetchCampus, updateCampus } from '../reducers';
+import { fetchFrat, updateFrat } from '../reducers';
 
-class EditCampus extends Component {
+class EditFrat extends Component {
     constructor(props) {
         super(props);
 
@@ -18,32 +17,32 @@ class EditCampus extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.editCampus = this.editCampus.bind(this);
+        this.editFrat = this.editFrat.bind(this);
     }
 
     componentDidMount() {
-        this.props.loadCampus(this.props.match.params.campusId);
+        this.props.loadFrat(this.props.match.params.fratId);
 
-        const campus = this.props.selectedCampus;
+        const frat = this.props.selectedFrat;
 
         this.setState({
-            nameInput: campus.name,
-            descriptionInput: campus.description
+            nameInput: frat.name,
+            descriptionInput: frat.description
         })
     }
 
-    editCampus(campus) {
-        axios.put(`/api/campuses/${this.props.match.params.campusId}`, {
-            name: campus.name,
-            description: campus.description
+    editFrat(frat) {
+        axios.put(`/api/frats/${this.props.match.params.fratId}`, {
+            name: frat.name,
+            description: frat.description
         })
             .then(res => res.data)
-            .then(campus => {
+            .then(frat => {
                 console.log('made it');
-                store.dispatch(updateCampus(campus))
+                store.dispatch(updateFrat(frat))
             })
             .then(() => {
-                this.props.loadCampus(this.props.match.params.campusId
+                this.props.loadFrat(this.props.match.params.fratId
             )})
             .catch(err => console.error(err));
     }
@@ -59,7 +58,7 @@ class EditCampus extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        this.editCampus({
+        this.editFrat({
             name: this.state.nameInput,
             description: this.state.descriptionInput
         })
@@ -74,16 +73,10 @@ class EditCampus extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
             <fieldset>
-                <legend>Edit Campus Information</legend>
-                Name: <input type='text' value={this.state.nameInput} 
-                        placeholder={this.props.selectedCampus.name
-                        ?
-                        this.props.selectedCampus.name : 'Required'} 
+                <legend>Edit Frat Information</legend>
+                Name: <input type='text' value={this.state.nameInput}  
                         onChange={this.handleNameChange}/><br/>
-                Description: <input type='text' value={this.state.descriptionInput} 
-                        placeholder={this.props.selectedCampus.description
-                        ?
-                        this.props.selectedCampus.description : 'Required'} 
+                Description: <input type='text' value={this.state.descriptionInput}  
                         onChange={this.handleDescriptionChange}/><br/>
                 <button type='submit'>Edit</button>
             </fieldset>
@@ -94,16 +87,16 @@ class EditCampus extends Component {
 
 const mapStateToProps = function(state) {
     return {
-        selectedCampus: state.selectedCampus
+        selectedFrat: state.selectedFrat
     }
 }
 
 const mapDispatchToProps = function(dispatch) {
     return {
-        loadCampus: function(id) {
-            dispatch(fetchCampus(id));
+        loadFrat: function(id) {
+            dispatch(fetchFrat(id));
         }
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditCampus));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditFrat));
